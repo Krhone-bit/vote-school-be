@@ -4,7 +4,7 @@ public enum UserCategory {
     CANDIDATO("candidato"),
     ADMIN("admin");
 
-    private String valor;
+    private final String valor;
 
     UserCategory(String valor) {
         this.valor = valor;
