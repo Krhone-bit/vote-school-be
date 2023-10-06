@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
@@ -28,9 +27,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws  Exception {
-        AntPathRequestMatcher h2ConsoleRequestMatcher = new AntPathRequestMatcher("/h2-console/**");
-        AntPathRequestMatcher swaggerUI = new AntPathRequestMatcher("/swagger-ui/**");
-        AntPathRequestMatcher docs = new AntPathRequestMatcher("/api-docs/**");
         return http
                 .csrf(csrf->
                         csrf
@@ -41,10 +37,11 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests((authz)->
                         authz
+                                .requestMatchers(antMatcher("/")).permitAll()
                                 .requestMatchers(antMatcher("/auth/**")).permitAll()
-                                .requestMatchers(h2ConsoleRequestMatcher).permitAll()
-                                .requestMatchers(swaggerUI).permitAll()
-                                .requestMatchers(docs).permitAll()
+                                .requestMatchers(antMatcher("/h2-console/**")).permitAll()
+                                .requestMatchers(antMatcher("/swagger-ui/**")).permitAll()
+                                .requestMatchers(antMatcher("/api-docs/**")).permitAll()
                                 .anyRequest().authenticated())
                 .sessionManagement(sessionManager->
                         sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
