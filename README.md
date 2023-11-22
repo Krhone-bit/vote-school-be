@@ -13,7 +13,7 @@ mvn clean install
 ```
 Run project
 ```bash
-mvn sprng-boot:run
+mvn spring-boot:run
 ```
 # Urls
 Base Url
@@ -22,7 +22,7 @@ http://localhost:8081
 ```
 Swagger 3 docs
 ```url
-http://localhost:8081/swager-ui/html.index
+http://localhost:8081/swagger-ui/index.html
 ```
 ![image](https://github.com/Krhone-bit/vote-school-be/assets/10105882/d1995343-89e7-466b-9e6c-74907017f298)
 
